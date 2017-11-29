@@ -36,6 +36,26 @@ class library:
 			return {}
 		pass
 
+	def updateReview(self,b_id,value):
+		try:
+			print ("0")
+			b = self.bib[b_id]
+			print ("98324")
+			b.sum_votes = b.sum_votes + int(value)
+			print ("1")
+			b = self.bib[b_id]
+			print ("2")
+			f = open('bd_dump' + self.name, 'wb')
+			print ("3")
+			pickle.dump(self.bib, f)
+			print ("4")
+			f.close()
+			print ("5")
+			return {'id': b.id, 'author': b.author, 'title': b.title, 'date':b.year, 'votes': b.sum_votes}
+		except:
+			return {}
+		pass
+
 	def listAuthors(self):
 		authors = {}
 		for b in self.bib.values():

@@ -10,7 +10,7 @@ Vlivro 1
 p4
 sS'sum_votes'
 p5
-I0
+I17
 sS'year'
 p6
 V2000
@@ -49,7 +49,7 @@ g3
 Vlivro 3
 p18
 sg5
-I0
+I5
 sg6
 V2015
 p19
@@ -117,11 +117,11 @@ sbsI6
 book
 p36
 (dp37
-g5
-I0
-sg3
+g3
 Vlivro 2
 p38
+sg5
+I0
 sg6
 V2017
 p39

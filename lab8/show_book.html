@@ -20,12 +20,13 @@
     </tr>
     <tr>
         <td>
-            <input type="button" value="1" id="rank_1"/>
-            <input type="button" value="2" id="rank_2"/>
-            <input type="button" value="3" id="rank_3"/>
-            <input type="button" value="4" id="rank_4"/>
-            <input type="button" value="5" id="rank_5"/>
-        
+            <form action="" method="post">
+            <input type="submit" value="1" name="rank"/>
+            <input type="submit" value="2" name="rank"/>
+            <input type="submit" value="3" name="rank"/>
+            <input type="submit" value="4" name="rank"/>
+            <input type="submit" value="5" name="rank"/>
+            </form>
         </td>
         <td> <input type="text" id="n_score"/></td>
 
@@ -37,7 +38,6 @@
     </tr>
     
 </table>
-
 
 <script type="text/javascript">
 var elem = document.getElementById("n_author");
@@ -51,6 +51,12 @@ elem.value = "$n_date";
 
 var elem = document.getElementById("n_score");
 elem.value = "$n_score";
+
+function sum(i) {
+    var elem = document.getElementById("n_score");
+    elem.value = parseInt(elem.value) + parseInt(i);
+}
+
 </script>
 
 

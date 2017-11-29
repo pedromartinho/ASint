@@ -15,7 +15,6 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml', 'json'])
 )
 
-
 bd = library.library("mylib")
 
 def sendFile(response, FileName):
@@ -23,10 +22,9 @@ def sendFile(response, FileName):
 	f = open(FileName, 'r')
 	response.write(f.read())
 	f.close()
-	
 
 class MainPage(webapp2.RequestHandler):
-    def get(self):
+	def get(self):
 		sendFile(self.response, 'index.html')
 
 class BooksListHandler(webapp2.RequestHandler):
@@ -50,9 +48,7 @@ class newBookHandler(webapp2.RequestHandler):
 		for b in bd.listBooks()['books']:
 			s+= '<a href="/html/books/%s"> %s</a> <b>' %( b['id'], b['title'])
 		self.response.write(s)
-		
-		
-		
+
 class BookInfoHandler(webapp2.RequestHandler):
 	def get(self, book_id):
 		
@@ -62,9 +58,13 @@ class BookInfoHandler(webapp2.RequestHandler):
 		f = open("show_book.html", 'r')
 		templ_str = Template(f.read())		
 		s = templ_str.substitute(n_score = b['votes'], n_title =  b['title'],  n_date= b['date'],  n_author= b['author'])
-
-
 		self.response.write(s)
+
+	def post(self,book_id):
+		self.response.content_type = 'application/json'
+		print (self.request.get('rank')+"---"+book_id)
+		b = bd.updateReview(int(book_id), self.request.get('rank'))
+		self.response.write(json.encode(b))
 
 class AuthorsListHandler(webapp2.RequestHandler):
 	def get(self):
@@ -72,8 +72,6 @@ class AuthorsListHandler(webapp2.RequestHandler):
 		for b in bd.listAuthors()['authors']:
 			s+= '<a href="/html/authors/%s"> %s</a> <b>' %( b, b)
 		self.response.write(s)
-		
-
 
 class AuthorInfoHandler(webapp2.RequestHandler):
 	def get(self, author_id):
@@ -81,13 +79,10 @@ class AuthorInfoHandler(webapp2.RequestHandler):
 		for b in bd.listBooks(author_id)['books']:
 			s+= '<a href="/html/books/%s"> %s</a> <b>' %( b['id'], b['title'])
 		self.response.write(s)
-		
 
 class BooksByAuthorHandler(webapp2.RequestHandler):
 	def get(self, author_id):
 		self.response.write('Books by Author %s!'% bd.listBooks(author_id))
-
-
 
 class Books(webapp2.RequestHandler):
 	def get(self):
@@ -125,10 +120,7 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r'/data/books/<book_id>', BookByID ),
 	webapp2.Route(r'/data/authors/<author_id>/books', BooksByAuthor),
 	webapp2.Route(r'/data/authors', Authors),
-
 ], debug=True)
-
-
 
 def main():
 	from paste import httpserver
