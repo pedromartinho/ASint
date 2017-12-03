@@ -1,0 +1,1 @@
+https://fenix.tecnico.ulisboa.pt/oauth/userdialog?redirect_uri=http://localhost:8070/istspaces&client_id=288540197912623&
